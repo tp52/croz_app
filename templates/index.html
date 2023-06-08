@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Car Price Prediction</title>
+  <link rel="stylesheet" type="text/css" href="/static/style.css">
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script src="https://code.jquery.com/ui/1.13.1/jquery-ui.min.js"></script>
+  <link rel="stylesheet" href="https://code.jquery.com/ui/1.13.1/themes/base/jquery-ui.css">
+  <style>
+    body {s
+      background-color: #f2f2f2;
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+    }
+
+    .container {
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 20px;
+      background-color: #fff;
+      border-radius: 8px;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+
+    .header {
+      text-align: center;
+      background-color: #4CAF50;
+      color: #fff;
+      padding: 10px;
+      margin-bottom: 20px;
+    }
+
+    .footer {
+      text-align: center;
+      background-color: #f2f2f2;
+      padding: 10px;
+      margin-top: 20px;
+    }
+
+    .description {
+      margin-bottom: 20px;
+    }
+
+    .description h2 {
+      margin-top: 0;
+    }
+
+    table {
+      width: 100%;
+      margin-top: 20px;
+      border-collapse: collapse;
+    }
+
+    th, td {
+      padding: 10px;
+      text-align: left;
+    }
+
+    th {
+      background-color: #f2f2f2;
+    }
+
+    input[type="number"], input[type="text"], select {
+      width: 100%;
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      box-sizing: border-box;
+      font-size: 16px;
+    }
+
+    input[type="submit"] {
+      width: 100%;
+      padding: 10px;
+      background-color: #4CAF50;
+      color: #fff;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      font-size: 16px;
+    }
+
+    .result {
+      margin-top: 20px;
+      padding: 20px;
+      background-color: #f2f2f2;
+      border-radius: 8px;
+    }
+  </style>
+  <script>
+    $(document).ready(function() {
+      var availableManufacturers = ['gmc', 'chevrolet', 'toyota', 'ford', 'jeep', 'nissan', 'ram', 'others', 'honda', 'dodge', 'volkswagen', 'hyundai', 'mercedes-benz', 'bmw', 'subaru'];
+      $('#manufacturer').autocomplete({
+        source: availableManufacturers
+      });
+    });
+  </script>
+</head>
+<body>
+  <div class="container">
+    <div class="header">
+      <h1>Car Price Prediction</h1>
+    </div>
+
+    <div class="description">
+      <h2>Car Price Prediction App</h2>
+      <p>Welcome to the Car Price Prediction app! This app allows you to predict the price of a car based on various factors such as the year of production, number of cylinders, odometer reading, manufacturer, condition, fuel type, car type, and drive type.</p>
+    </div>
+
+    <form method="POST" action="/">
+      <table>
+        <tr>
+          <td><label for="year">Year of Production:</label></td>
+          <td><input type="number" name="year" id="year" required></td>
+        </tr>
+        <tr>
+          <td><label for="cylinders">Number of Cylinders:</label></td>
+          <td><input type="number" name="cylinders" id="cylinders" required></td>
+        </tr>
+        <tr>
+          <td><label for="odometer">Odometer:</label></td>
+          <td><input type="number" name="odometer" id="odometer" required></td>
+        </tr>
+        <tr>
+          <td><label for="manufacturer">Manufacturer:</label></td>
+          <td><input type="text" name="manufacturer" id="manufacturer" required></td>
+        </tr>
+        <tr>
+          <td><label for="condition">Condition:</label></td>
+          <td>
+            <select name="condition" id="condition" required>
+              <option value="new">New</option>
+              <option value="like new">Like New</option>
+              <option value="excellent">Excellent</option>
+              <option value="good">Good</option>
+              <option value="fair">Fair</option>
+              <option value="salvage">Salvage</option>
+            </select>
+          </td>
+        </tr>
+        <tr>
+          <td><label for="fuel">Fuel:</label></td>
+          <td>
+            <select name="fuel" id="fuel" required>
+              <option value="diesel">Diesel</option>
+              <option value="electric">Electric</option>
+              <option value="gas">Gas</option>
+              <option value="hybrid">Hybrid</option>
+              <option value="other">Other</option>
+            </select>
+          </td>
+        </tr>
+        <tr>
+          <td><label for="type">Type:</label></td>
+          <td>
+            <select name="type" id="type" required>
+              <option value="SUV">SUV</option>
+              <option value="bus">Bus</option>
+              <option value="convertible">Convertible</option>
+              <option value="coupe">Coupe</option>
+              <option value="hatchback">Hatchback</option>
+              <option value="mini-van">Mini Van</option>
+              <option value="offroad">Offroad</option>
+              <option value="other">Other</option>
+              <option value="pickup">Pickup</option>
+              <option value="sedan">Sedan</option>
+              <option value="truck">Truck</option>
+              <option value="van">Van</option>
+              <option value="wagon">Wagon</option>
+            </select>
+          </td>
+        </tr>
+        <tr>
+          <td><label for="drive_type">Drive Type:</label></td>
+          <td>
+            <select name="drive_type" id="drive_type" required>
+              <option value="4wd">4WD</option>
+              <option value="f2d">F2D</option>
+              <option value="rwd">RWD</option>
+            </select>
+          </td>
+        </tr>
+        <tr>
+          <td><label for="transmission">Transmission</label></td>
+          <td>
+            <select name="transmission" id="transmission" required>
+              <option value="automatic">Automatic</option>
+              <option value="manual">Manuel</option>
+              <option value="other">Other/Unknown</option>
+            </select>
+          </td>
+        </tr>
+
+        <tr>
+          <td colspan="2"><input type="submit" value="Predict"></td>
+        </tr>
+      </table>
+    </form>
+
+     {% if prediction %}
+            <div class="prediction">
+                <h2>You vehicle is valued at: {{ prediction }} dollars</h2>
+            </div>
+    {% endif %}
+
+  </div>
+</body>
+</html>
